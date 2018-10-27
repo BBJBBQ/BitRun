@@ -1,0 +1,86 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+<div class="container">
+    <form class="form-horizontal">
+    <fieldset>
+      <div id="legend" class="">
+        <legend class="">求给定区间内若干个随机整数</legend>
+      </div>
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label class="control-label" for="input01">最大值</label>
+          <div class="controls">
+            <input placeholder="大于0的整数" class="input-xlarge" type="text" id="max">
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label class="control-label" for="input01">最小值</label>
+          <div class="controls">
+            <input placeholder="小于最大值的正整数" class="input-xlarge" type="text" id="min">
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label class="control-label" for="input01">随机数个数</label>
+          <div class="controls">
+            <input placeholder="大于0的整数" class="input-xlarge" type="text" id="number">
+            <p class="help-block"></p>
+          </div>
+        </div>
+
+    <div class="control-group">
+
+          <!-- Button -->
+          <div class="controls">
+            <button class="btn btn-success" type="button" id="idone">一键生成</button>
+          </div>
+        </div>
+
+    </fieldset>
+  </form>
+<div><h2>输出结果</h2></div>
+<div><p id="demo1"></p></div>
+<div><p id="demo2"></p></div>
+</div>
+<script>
+    var ws=new WebSocket('ws://localhost:8001');
+    ws.onopen=function(e){
+        dispStatus.innerHTML='连接成功';
+    }
+    document.getElementById('idone').onclick=function(e){
+        var max,min,number;
+        max = Number(document.getElementById("max").value);
+        min = Number(document.getElementById("min").value);
+        number = Number(document.getElementById("number").value);
+        ws.send([max,min,number].join('#'));
+    }
+    ws.onmessage=function(e){
+    	arr = e.data.split('#');
+       document.getElementById('demo1').innerHTML='生成的随机数为: <mark>'+arr[0]+'</mark>';
+       document.getElementById('demo2').innerHTML='使用区块的number属性为: <mark>'+arr[1]+'</mark>';
+    }
+</script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
