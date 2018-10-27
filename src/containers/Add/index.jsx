@@ -8,20 +8,28 @@ import nervos from '../../nervos'
 const timeFormatter = time => ('' + time).padStart(2, '0')
 
 const submitTexts = {
-  normal: '愿此刻永恒',
+  normal: '提交',
   submitting: '保存中',
   submitted: '保存成功',
 }
 
 class Add extends React.Component {
   state = {
-    text: '',
+    text1: '',
+    text2: '',
+    text3: '',
     time: new Date(),
     submitText: submitTexts.normal,
     errorText: '',
   }
-  handleInput = e => {
-    this.setState({ text: e.target.value })
+  handleInput1 = e => {
+    this.setState({ text1: e.target.value })
+  }
+  handleInput2 = e => {
+    this.setState({ text2: e.target.value })
+  }
+  handleInput3 = e => {
+    this.setState({ text3: e.target.value })
   }
   handleSubmit = e => {
     const { time, text } = this.state
@@ -35,7 +43,7 @@ class Add extends React.Component {
         this.setState({
           submitText: submitTexts.submitting,
         })
-        return simpleStoreContract.methods.add(text, +time).send(tx)
+        return simpleStoreContract.methods.add(text,+time).send(tx)
       })
       .then(res => {
         if (res.hash) {
@@ -74,15 +82,31 @@ class Add extends React.Component {
           <svg className="icon" aria-hidden="true">
             <use xlinkHref="#icon-icon-time" />
           </svg>
-          <span>把你觉得重要的一刻，存放在链上，永远保存，随时查看</span>
+          <span>请根据指示完成以下操作</span>
         </div>
         <textarea
           cols="32"
-          rows="10"
+          rows="1"
           className="add__content--textarea"
-          placeholder="留下你的时光吧..."
-          onChange={this.handleInput}
-          value={text}
+          placeholder="请输入min："
+          onChange={this.handleInput1}
+          value={this.state.text1}
+        />
+        <textarea
+          cols="32"
+          rows="1"
+          className="add__content--textarea"
+          placeholder="请输入max："
+          onChange={this.handleInput2}
+          value={this.state.text2}
+        />
+        <textarea
+          cols="32"
+          rows="1"
+          className="add__content--textarea"
+          placeholder="请输入number："
+          onChange={this.handleInput3}
+          value={this.state.text3}
         />
         <Submit text={submitText} onClick={this.handleSubmit} disabled={submitText !== submitTexts.normal} />
         {errorText && <span className="warning">{errorText}</span>}
