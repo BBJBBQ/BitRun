@@ -6,7 +6,7 @@
 
 **工作原理**<br>
 生成器在Appchain上抓取最新的区块Hash值作为随机源，经过转换，输出在取值范围内的N个随机数。<br>
-安装nodejs-websocket作为ab.js文件和random1.html & random2.html 交互的环境<br>
+安装nodejs-websocket作为```ab.js```文件和```random1.html``` & ```random2.html``` 交互的环境<br>
 
 **环境配置和使用方法**<br>
 1) clone<br>
