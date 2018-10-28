@@ -11,7 +11,7 @@
 **环境配置和使用方法**<br>
 1) clone<br>
 ```
-git clone https://github.com/BBJBBQ/BitRun/ <br>
+git clone https://github.com/BBJBBQ/BitRun/ 
 ```
 2) 启动ab.js<br>
 ```
